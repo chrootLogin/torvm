@@ -33,7 +33,10 @@ LANG=C chroot /mnt /bin/bash -x <<'EOF'
 mount -t proc none /proc
 mount -t sysfs none /sys
 
-apt-get install linux-image-amd64 grub
+DEBIAN_FRONTEND=noninteractive apt-get install -y \
+  linux-image-amd64 \
+  grub
+
 grub-install /dev/nbd0
 update-grub
 
