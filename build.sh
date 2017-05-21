@@ -1,5 +1,19 @@
 #!/bin/bash
 
+function finish {
+  echo "Unmount everything..."
+  umount /mnt/sys
+  umount /mnt/proc
+  umount /mnt/dev
+  umount /mnt
+  sleep 5
+
+  echo "Disconnect image and unload NBD module..."
+  qemu-nbd -d /dev/nbd0
+  rmmod nbd
+}
+
+trap finish EXIT
 set -x
 
 echo "Create VM image..."
@@ -43,14 +57,3 @@ EOF
 echo "Fix grub..."
 grub-install /dev/nbd0 --root-directory=/mnt --modules="biosdisk part_msdos"
 sleep 5
-
-echo "Unmount everything..."
-umount /mnt/sys
-umount /mnt/proc
-umount /mnt/dev
-umount /mnt
-sleep 5
-
-echo "Disconnect image and unload NBD module..."
-qemu-nbd -d /dev/nbd0
-rmmod nbd
