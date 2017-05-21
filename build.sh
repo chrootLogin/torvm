@@ -53,11 +53,15 @@ echo "Chroot inside image and bootstrap..."
 LANG=C chroot /mnt /bin/bash -e -x <<'EOF'
 
 DEBIAN_FRONTEND=noninteractive apt-get install -y \
+  build-essentials \
   linux-image-amd64 \
-  grub
+  grub \
+  python-pip
 
 grub-install /dev/nbd0
 update-grub
+
+pip install ansible
 EOF
 
 echo "Fix grub..."
