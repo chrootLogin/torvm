@@ -3,11 +3,11 @@
 set -x
 
 echo "Create VM image..."
-qemu-img create -f qcow2 debian.qcow2 2G || exit 255
+qemu-img create -f qcow2 torvm.qcow2 2G || exit 255
 
 echo "Load NBD module and connect image..."
 modprobe nbd max_part=16 || exit 255
-qemu-nbd -c /dev/nbd0 debian.qcow2 || exit 255
+qemu-nbd -c /dev/nbd0 torvm.qcow2 || exit 255
 
 echo "Create swap and root partition..."
 sfdisk /dev/nbd0 -D -uM << EOF
