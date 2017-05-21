@@ -38,7 +38,7 @@ sleep 5
 
 echo "Format everything..."
 mkswap /dev/nbd0p1
-mkfs.ext3 /dev/nbd0p2
+mkfs.ext4 /dev/nbd0p2
 mount /dev/nbd0p2 /mnt
 
 echo "Install debian..."
