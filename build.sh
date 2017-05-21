@@ -1,22 +1,21 @@
 #!/bin/bash
 
-set -e
 set -x
 
 echo "Create VM image..."
-qemu-img create -f qcow2 debian.qcow2 2G
+qemu-img create -f qcow2 debian.qcow2 2G || exit 255
 
 echo "Load NBD module and connect image..."
-modprobe nbd max_part=16
-qemu-nbd -c /dev/nbd0 debian.qcow2
+modprobe nbd max_part=16 || exit 255
+qemu-nbd -c /dev/nbd0 debian.qcow2 || exit 255
 
 echo "Create swap and root partition..."
 sfdisk /dev/nbd0 -D -uM << EOF
 ,512,82
 ;
 EOF
-
 sleep 5
+
 echo "Format everything..."
 mkswap /dev/nbd0p1
 mkfs.ext3 /dev/nbd0p2
@@ -29,7 +28,7 @@ echo "Mount /dev into image..."
 mount --bind /dev/ /mnt/dev
 
 echo "Chroot inside image and bootstrap..."
-LANG=C chroot /mnt /bin/bash -x <<'EOF'
+LANG=C chroot /mnt /bin/bash -e -x <<'EOF'
 mount -t proc none /proc
 mount -t sysfs none /sys
 
