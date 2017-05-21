@@ -1,6 +1,8 @@
 #!groovy
 
 node('privileged') {
+  properties([disableConcurrentBuilds()])
+
   stage('Checkout') {
     checkout scm
   }
