@@ -1,6 +1,12 @@
 #!/bin/bash
 
 function finish {
+  echo "Stop all processes..."
+  lsof /mnt | awk 'FNR > 1 { print $2 }' | xargs kill
+  sleep 10
+  echo "Kill all processes..."
+  lsof /mnt | awk 'FNR > 1 { print $2 }' | xargs kill -9
+
   echo "Unmount everything..."
   umount /mnt/sys
   umount /mnt/proc
