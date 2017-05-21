@@ -55,5 +55,5 @@ update-grub
 EOF
 
 echo "Fix grub..."
-grub-install /dev/nbd0 --root-directory=/mnt --modules="biosdisk part_msdos"
+grub-install /dev/nbd0 --root-directory=/mnt
 sleep 5
