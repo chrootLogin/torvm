@@ -4,6 +4,7 @@ node('privileged') {
   properties([disableConcurrentBuilds()])
 
   stage('Checkout') {
+    deleteDir()
     checkout scm
   }
 
