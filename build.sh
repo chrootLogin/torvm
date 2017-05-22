@@ -113,8 +113,6 @@ update-grub
 
 pip install -U cffi
 pip install ansible
-
-lsblk --list
 EOF
 
 cp -R root/* /mnt || fail "Couldn't copy root filesystem"
