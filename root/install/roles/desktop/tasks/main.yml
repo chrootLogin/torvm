@@ -1,0 +1,8 @@
+---
+- name: "Install MATE Desktop"
+  apt:
+    pkg: "{{ item }}"
+    state: latest
+  with_items:
+    - task-mate-desktop
+    - mate-desktop-environment-extras

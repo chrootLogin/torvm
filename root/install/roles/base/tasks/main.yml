@@ -2,3 +2,33 @@
 - name: "Upgrade all packages"
   apt:
     upgrade: dist
+
+- name: "Add default user"
+  user:
+    name: torvm
+    # torvm -> mkpasswd --method=sha-512
+    password: "$6$vCS7Y9RwlT.XgP$lNI.ILIU4CEYBBOF3YOJOZQ3sryP.8zoczdEC59EMeXx7QZqebibnznkix1p94FeRVhJtdyhkQl4H96ajurqc1"
+    groups: sudo
+
+- name: "Install base packages"
+  apt:
+    pkg: "{{ item }}"
+    state: latest
+  with_items:
+    - curl
+    - locales
+    - procps
+    - command-not-found
+    - bash-completion
+    - bzip2
+    - unzip
+    - git
+    - vim
+    - wget
+    - iputils-ping
+    - screen
+    - ntp
+
+- name: "Update command-not-found"
+  shell: update-command-not-found
+
