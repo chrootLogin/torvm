@@ -105,7 +105,10 @@ update-grub
 
 pip install -U cffi
 pip install ansible
+EOF
 
+echo "Chroot inside image and cleanup..."
+LANG=C chroot /mnt /bin/bash -e -x <<'EOF' || fail "Cannot cleanup VM!"
 apt-get remove -y \
   build-essential \
   libffi-dev \
