@@ -49,7 +49,7 @@ mkfs.ext4 /dev/nbd0p2 || fail "Couldn't create root filesystem"
 mount /dev/nbd0p2 /mnt || fail "Couldn't mount root filesystem"
 
 echo "Install debian..."
-debootstrap --include=less,locales-all,vim,sudo,acpid stable /mnt http://ftp.ch.debian.org/debian || fail "Couldn't create base filesystem"
+debootstrap --include=less,locales-all,vim,sudo,acpid jessie /mnt http://ftp.ch.debian.org/debian || fail "Couldn't create base filesystem"
 
 echo "Mount image..."
 mount --bind /dev /mnt/dev || fail "Couldn't mount /dev"
