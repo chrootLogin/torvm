@@ -95,7 +95,8 @@ apt-get install -y \
   linux-image-amd64 \
   grub-pc \
   python-dev \
-  python-pip
+  python-pip \
+  python-setuptools
 
 grub-install /dev/nbd0
 update-grub
@@ -103,8 +104,11 @@ update-grub
 pip install ansible
 
 apt-get remove -y \
+  build-essential \
   libffi-dev \
   python-dev
+
+apt-get clean
 EOF
 
 echo "Fix grub.cfg"
