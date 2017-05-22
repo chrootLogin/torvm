@@ -2,10 +2,10 @@
 
 function cleanup {
   echo "Stop all processes..."
-  lsof /mnt | awk 'FNR > 1 { print $2 }' | xargs kill
+  lsof /mnt | awk 'FNR > 1 { print $2 }' | xargs -r kill
   sleep 10
   echo "Kill all processes..."
-  lsof /mnt | awk 'FNR > 1 { print $2 }' | xargs kill -9
+  lsof /mnt | awk 'FNR > 1 { print $2 }' | xargs -r kill -9
 
   echo "Unmount everything..."
   umount /mnt/sys
