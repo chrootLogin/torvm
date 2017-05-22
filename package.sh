@@ -20,8 +20,12 @@ rm -rf qemu
 
 echo "Create VMware package"
 cat << EOF > TorVM.vmware/TorVM.vmx
+config.version = "8"
+virtualHW.version = "7"
+guestOS = "otherlinux-64"
 numvcpus = "1"
 memsize = "1024"
+
 scsi0.present = "TRUE"
 scsi0.sharedBus = "none"
 scsi0.virtualDev = "lsilogic"
