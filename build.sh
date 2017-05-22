@@ -90,7 +90,7 @@ export DEBIAN_FRONTEND=noninteractive
 
 apt-get install -y \
   build-essential \
-  libffi \
+  libffi6 \
   libffi-dev \
   linux-image-amd64 \
   grub-pc \
