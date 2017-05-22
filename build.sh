@@ -137,7 +137,6 @@ EOF
 
 echo "Fix boot device in grub.cfg"
 sed -i "s|/dev/nbd0p2|UUID=$(getUUID /dev/nbd0p2)|g" /mnt/boot/grub/grub.cfg || fail "Couldn't fix grub.cfg"
-cat /mnt/boot/grub/grub.cfg
 
 echo "Fix grub..."
 grub-install /dev/nbd0 --root-directory=/mnt --modules="biosdisk part_msdos" || fail "Cannot reinstall grub"
