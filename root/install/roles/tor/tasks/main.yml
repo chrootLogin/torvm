@@ -1,0 +1,12 @@
+---
+- name: "Install Tor & Dependencies"
+  apt:
+    pkg: "{{ item }}"
+    state: latest
+  with_items:
+    - tor
+
+- name: "Enable tor"
+  service:
+    name: tor
+    enabled: yes

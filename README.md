@@ -3,7 +3,16 @@ A debian VM running Tor.
 
 **This is work in progress... So, don't expect something usable**
 
+## Using
+
+ 1. Download desired build
+ 2. Start VM
+ 
+Default username: *torvm* \
+Default password: *torvm*
+
 ## Building
+
 You need the following things:
  * qemu-img
  * qemu-nbd
