@@ -12,8 +12,8 @@ node('privileged') {
     sh 'sudo bash ./build.sh'
   }
   
-  stage('Convert') {
-    sh 'qemu-img convert -f qcow2 -O vmdk torvm.qcow2 torvm.vmdk'
+  stage('Package') {
+    sh 'bash ./package.sh'
   }
 
   stage('Deploy') {
