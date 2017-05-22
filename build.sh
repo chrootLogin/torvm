@@ -62,11 +62,12 @@ mount -t sysfs none /mnt/sys || fail "Couldn't mount /sys"
 
 echo "Configuring system..."
 cat <<EOF > /mnt/etc/fstab || fail "Couldn't create fstab"
-$(getUUID /dev/nbd0p1)  none        swap    sw                  0   0
-$(getUUID /dev/nbd0p2)  /           ext4    errors=remount-ro   0   1
-none                    /dev/shm    tmpfs   defaults,size=400M  0   0
-proc                    /proc       proc    defaults            0   0
+UUID=$(getUUID /dev/nbd0p1) none        swap    sw                  0   0
+UUID=$(getUUID /dev/nbd0p2) /           ext4    errors=remount-ro   0   1
+none                        /dev/shm    tmpfs   defaults,size=400M  0   0
+proc                        /proc       proc    defaults            0   0
 EOF
+cat /mnt/etc/fstab
 
 echo "torvm" > /mnt/etc/hostname || fail "Couldn't set hostname"
 
@@ -132,8 +133,9 @@ rm -rf /install
 EOF
 
 echo "Fix grub.cfg"
-sed -i "s|/dev/nbd0p1|/dev/vda1|g" /mnt/boot/grub/grub.cfg || fail "Couldn't fix grub.cfg"
-sed -i "s|/dev/nbd0p2|/dev/vda2|g" /mnt/boot/grub/grub.cfg || fail "Couldn't fix grub.cfg"
+#sed -i "s|/dev/nbd0p1|/dev/vda1|g" /mnt/boot/grub/grub.cfg || fail "Couldn't fix grub.cfg"
+#sed -i "s|/dev/nbd0p2|/dev/vda2|g" /mnt/boot/grub/grub.cfg || fail "Couldn't fix grub.cfg"
+cat /mnt/boot/grub/grub.cfg
 
 echo "Fix grub..."
 grub-install /dev/nbd0 --root-directory=/mnt --modules="biosdisk part_msdos" || fail "Cannot reinstall grub"
