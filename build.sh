@@ -90,6 +90,8 @@ export DEBIAN_FRONTEND=noninteractive
 
 apt-get install -y \
   build-essential \
+  libffi \
+  libffi-dev \
   linux-image-amd64 \
   grub-pc \
   python-dev \
@@ -101,6 +103,7 @@ update-grub
 pip install ansible
 
 apt-get remove -y \
+  libffi-dev \
   python-dev
 EOF
 
