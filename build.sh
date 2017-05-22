@@ -90,10 +90,10 @@ export DEBIAN_FRONTEND=noninteractive
 
 apt-get install -y \
   build-essential \
+  grub-pc \
   libffi6 \
   libffi-dev \
   linux-image-amd64 \
-  grub-pc \
   python-dev \
   python-pip \
   python-setuptools
@@ -112,8 +112,8 @@ apt-get clean
 EOF
 
 echo "Fix grub.cfg"
-sed -i "s|/dev/nbd0p1|/dev/vda1|g" /mnt/boot/grub/grub.cfg
-sed -i "s|/dev/nbd0p2|/dev/vda2|g" /mnt/boot/grub/grub.cfg
+sed -i "s|/dev/nbd0p1|/dev/vda1|g" /mnt/boot/grub/grub.cfg || fail "Couldn't fix grub.cfg"
+sed -i "s|/dev/nbd0p2|/dev/vda2|g" /mnt/boot/grub/grub.cfg || fail "Couldn't fix grub.cfg"
 
 echo "Fix grub..."
 grub-install /dev/nbd0 --root-directory=/mnt --modules="biosdisk part_msdos" || fail "Cannot reinstall grub"
