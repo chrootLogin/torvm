@@ -6,7 +6,9 @@ A debian VM running Tor.
 ## Building
 You need the following things:
  * qemu-img
+ * qemu-nbd
  * debootstrap
+ * filesystem utilities for ext4 and swap
 
 Use the `build.sh` script.
 
