@@ -26,6 +26,10 @@ function fail {
   exit 1
 }
 
+function getUUID {
+  blkid -s UUID -o value $1
+}
+
 trap cleanup EXIT
 set -x
 
@@ -58,10 +62,10 @@ mount -t sysfs none /mnt/sys || fail "Couldn't mount /sys"
 
 echo "Configuring system..."
 cat <<EOF > /mnt/etc/fstab || fail "Couldn't create fstab"
-/dev/vda1   none        swap    sw                  0   0
-/dev/vda2   /           ext4    errors=remount-ro   0   1
-none        /dev/shm    tmpfs   defaults,size=400M  0   0
-proc        /proc       proc    defaults            0   0
+$(getUUID /dev/nbd0p1)  none        swap    sw                  0   0
+$(getUUID /dev/nbd0p2)  /           ext4    errors=remount-ro   0   1
+none                    /dev/shm    tmpfs   defaults,size=400M  0   0
+proc                    /proc       proc    defaults            0   0
 EOF
 
 echo "torvm" > /mnt/etc/hostname || fail "Couldn't set hostname"
