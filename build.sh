@@ -93,9 +93,12 @@ apt-get install -y \
   grub-pc \
   libffi6 \
   libffi-dev \
+  libssl1.0.0 \
+  libssl-dev \
   libyaml-0-2 \
   libyaml-dev \
   linux-image-amd64 \
+  openssl \
   python-dev \
   python-pip \
   python-setuptools
@@ -115,6 +118,7 @@ LANG=C chroot /mnt /bin/bash -e -x <<'EOF' || fail "Cannot cleanup VM!"
 apt-get remove -y \
   build-essential \
   libffi-dev \
+  libssl-dev \
   libyaml-dev \
   python-dev
 
