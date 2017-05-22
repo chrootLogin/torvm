@@ -135,9 +135,8 @@ apt-get clean
 rm -rf /install /root/.ansible
 EOF
 
-echo "Fix grub.cfg"
-#sed -i "s|/dev/nbd0p1|/dev/vda1|g" /mnt/boot/grub/grub.cfg || fail "Couldn't fix grub.cfg"
-#sed -i "s|/dev/nbd0p2|/dev/vda2|g" /mnt/boot/grub/grub.cfg || fail "Couldn't fix grub.cfg"
+echo "Fix boot device in grub.cfg"
+sed -i "s|/dev/nbd0p2|UUID=$(getUUID /dev/nbd0p2)|g" /mnt/boot/grub/grub.cfg || fail "Couldn't fix grub.cfg"
 cat /mnt/boot/grub/grub.cfg
 
 echo "Fix grub..."
