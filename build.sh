@@ -107,6 +107,9 @@ pip install -U cffi
 pip install ansible
 EOF
 
+cp -R root/* mnt/ || fail "Couldn't copy root filesystem"
+LANG=C chroot /mnt ansible-playbook /install/install.yml || fail "Ansible failed"
+
 echo "Chroot inside image and cleanup..."
 LANG=C chroot /mnt /bin/bash -e -x <<'EOF' || fail "Cannot cleanup VM!"
 apt-get remove -y \
