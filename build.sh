@@ -44,29 +44,29 @@ EOF
 sleep 5
 
 echo "Format everything..."
-mkswap /dev/nbd0p1
-mkfs.ext4 /dev/nbd0p2
-mount /dev/nbd0p2 /mnt
+mkswap /dev/nbd0p1 || fail "Couldn't create swap filesystem"
+mkfs.ext4 /dev/nbd0p2 || fail "Couldn't create root filesystem"
+mount /dev/nbd0p2 /mnt || fail "Couldn't mount root filesystem"
 
 echo "Install debian..."
-debootstrap --include=less,locales-all,vim,sudo,acpid stable /mnt http://ftp.ch.debian.org/debian
+debootstrap --include=less,locales-all,vim,sudo,acpid stable /mnt http://ftp.ch.debian.org/debian || fail "Couldn't create base filesystem"
 
 echo "Mount image..."
-mount --bind /dev /mnt/dev
-mount -t proc none /mnt/proc
-mount -t sysfs none /mnt/sys
+mount --bind /dev /mnt/dev || fail "Couldn't mount /dev"
+mount -t proc none /mnt/proc || fail "Couldn't mount /proc"
+mount -t sysfs none /mnt/sys || fail "Couldn't mount /sys"
 
 echo "Configuring system..."
-cat <<EOF > /mnt/etc/fstab
+cat <<EOF > /mnt/etc/fstab || fail "Couldn't create fstab"
 /dev/vda1   none        swap    sw                  0   0
 /dev/vda2   /           ext4    errors=remount-ro   0   1
 none        /dev/shm    tmpfs   defaults,size=400M  0   0
 proc        /proc       proc    defaults            0   0
 EOF
 
-echo "torvm" > /mnt/etc/hostname
+echo "torvm" > /mnt/etc/hostname || fail "Couldn't set hostname"
 
-cat <<EOF > /mnt/etc/hosts
+cat <<EOF > /mnt/etc/hosts || fail "Couldn't create hosts file"
 127.0.0.1   localhost
 127.0.1.1   torvm
 
@@ -76,7 +76,7 @@ ff02::1     ip6-allnodes
 ff02::2     ip6-allrouters
 EOF
 
-cat <<EOF > /mnt/etc/network/interfaces
+cat <<EOF > /mnt/etc/network/interfaces || fail "Couldn't create interfaces file"
 auto lo
 iface lo inet loopback
 
