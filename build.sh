@@ -49,7 +49,7 @@ sleep 5
 
 echo "Format everything..."
 mkswap /dev/nbd0p1 || fail "Couldn't create swap filesystem"
-mkfs.ext4 /dev/nbd0p2 || fail "Couldn't create root filesystem"
+mkfs.ext4 -L root /dev/nbd0p2 || fail "Couldn't create root filesystem"
 mount /dev/nbd0p2 /mnt || fail "Couldn't mount root filesystem"
 
 echo "Install debian..."
