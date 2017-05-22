@@ -116,7 +116,10 @@ pip install ansible
 EOF
 
 cp -R root/* /mnt || fail "Couldn't copy root filesystem"
-LANG=C chroot /mnt "cd /install && ansible-playbook install.yml" || fail "Ansible failed"
+LANG=C chroot /mnt /bin/bash -e -x <<'EOF' || fail "Ansible failed"
+cd /install
+ansible-playbook install.yml
+EOF
 
 echo "Chroot inside image and cleanup..."
 LANG=C chroot /mnt /bin/bash -e -x <<'EOF' || fail "Cannot cleanup VM!"
