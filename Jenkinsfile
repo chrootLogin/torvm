@@ -16,7 +16,13 @@ node('privileged') {
     sh 'qemu-img convert -f qcow2 -O vmdk torvm.qcow2 torvm.vmdk'
   }
 
-  stage('Upload') {
-    sh 'bash ./deploy.sh'
+  stage('Deploy') {
+    withCredentials([
+      usernamePassword(credentialsId: 'bintray',
+        passwordVariable: 'BINTRAY_PASSWORD',
+        usernameVariable: 'BINTRAY_USERNAME')
+    ]) {
+      sh 'bash ./deploy.sh'
+    }
   }
 }
