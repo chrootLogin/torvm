@@ -89,7 +89,7 @@ LANG=C chroot /mnt /bin/bash -e -x <<'EOF'
 export DEBIAN_FRONTEND=noninteractive
 
 apt-get install -y \
-  build-essentials \
+  build-essential \
   linux-image-amd64 \
   grub-pc \
   python-pip
