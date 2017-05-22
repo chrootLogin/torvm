@@ -67,13 +67,13 @@ EOF
 echo "torvm" > /mnt/etc/hostname
 
 cat <<EOF > /mnt/etc/hosts
-127.0.0.1       localhost
-127.0.1.1 		torvm
+127.0.0.1   localhost
+127.0.1.1   torvm
 
 # The following lines are desirable for IPv6 capable hosts
-::1     localhost ip6-localhost ip6-loopback
-ff02::1 ip6-allnodes
-ff02::2 ip6-allrouters
+::1         localhost ip6-localhost ip6-loopback
+ff02::1     ip6-allnodes
+ff02::2     ip6-allrouters
 EOF
 
 cat <<EOF > /mnt/etc/network/interfaces
