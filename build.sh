@@ -93,6 +93,8 @@ apt-get install -y \
   grub-pc \
   libffi6 \
   libffi-dev \
+  libyaml-0-2 \
+  libyaml-dev \
   linux-image-amd64 \
   python-dev \
   python-pip \
@@ -106,6 +108,7 @@ pip install ansible
 apt-get remove -y \
   build-essential \
   libffi-dev \
+  libyaml-dev \
   python-dev
 
 apt-get clean
