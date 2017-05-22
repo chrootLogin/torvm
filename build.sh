@@ -34,7 +34,7 @@ trap cleanup EXIT
 set -x
 
 echo "Create VM image..."
-qemu-img create -f qcow2 torvm.qcow2 2G || fail "Couldn't create image!"
+qemu-img create -f qcow2 torvm.qcow2 10G || fail "Couldn't create image!"
 
 echo "Load NBD module and connect image..."
 modprobe nbd max_part=16 || fail "Couldn't load NBD module!"
