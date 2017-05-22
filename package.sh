@@ -22,8 +22,10 @@ echo "Create VMware package"
 cat << EOF > TorVM.vmware/TorVM.vmx
 config.version = "8"
 virtualHW.version = "7"
+
 displayName = "TorVM"
 guestOS = "other26xlinux-64"
+
 numvcpus = "2"
 memsize = "1024"
 
