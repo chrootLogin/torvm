@@ -85,20 +85,28 @@ iface eth0 inet dhcp
 EOF
 
 echo "Chroot inside image and bootstrap..."
-LANG=C chroot /mnt /bin/bash -e -x <<'EOF'
+LANG=C chroot /mnt /bin/bash -e -x <<'EOF' || fail "Cannot bootstrap VM!"
 export DEBIAN_FRONTEND=noninteractive
 
 apt-get install -y \
   build-essential \
   linux-image-amd64 \
   grub-pc \
+  python-dev \
   python-pip
 
 grub-install /dev/nbd0
 update-grub
 
 pip install ansible
+
+apt-get remove -y \
+  python-dev
 EOF
+
+echo "Fix grub.cfg"
+sed -i "s|/dev/nbd0p1|/dev/vda1|g" /mnt/boot/grub/grub.cfg
+sed -i "s|/dev/nbd0p2|/dev/vda2|g" /mnt/boot/grub/grub.cfg
 
 echo "Fix grub..."
 grub-install /dev/nbd0 --root-directory=/mnt --modules="biosdisk part_msdos" || fail "Cannot reinstall grub"
