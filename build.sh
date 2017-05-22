@@ -132,8 +132,7 @@ apt-get remove -y \
 
 apt-get clean
 
-rm -rf /install
-rm -rf /root/.ansible
+rm -rf /install /root/.ansible
 EOF
 
 echo "Fix grub.cfg"
