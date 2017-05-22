@@ -119,6 +119,8 @@ apt-get remove -y \
   python-dev
 
 apt-get clean
+
+rm -rf /install
 EOF
 
 echo "Fix grub.cfg"
