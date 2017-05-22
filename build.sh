@@ -103,6 +103,7 @@ apt-get install -y \
 grub-install /dev/nbd0
 update-grub
 
+pip install -U cffi
 pip install ansible
 
 apt-get remove -y \
