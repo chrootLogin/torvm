@@ -62,5 +62,5 @@ ethernet0.virtualDev = "e1000"
 ethernet0.networkName = "Inside"
 ethernet0.generatedAddressOffset = "0"
 EOF
-zip -9 -r torvm-vmware.zip vmware
+zip -r torvm-vmware.zip vmware
 rm -rf vmware
