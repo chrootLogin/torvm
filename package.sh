@@ -19,7 +19,7 @@ tar czf torvm-qemu.tar.gz qemu
 rm -rf qemu
 
 echo "Create VMware package"
-cat << EOF > TorVM.vmware/TorVM.vmx
+cat << EOF > vmware/TorVM.vmware/TorVM.vmx
 config.version = "8"
 virtualHW.version = "7"
 
