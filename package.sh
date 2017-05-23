@@ -28,6 +28,8 @@ guestOS = "other26xlinux-64"
 numvcpus = "2"
 memsize = "1024"
 
+tools.syncTime = "TRUE"
+
 vmci0.present = "TRUE"
 
 floppy0.present = "FALSE"
@@ -58,8 +60,11 @@ pciBridge7.functions = "8"
 ethernet0.pciSlotNumber = "32"
 ethernet0.present = "TRUE"
 ethernet0.virtualDev = "e1000"
-ethernet0.networkName = "Inside"
+ethernet0.connectionType = "nat"
 ethernet0.generatedAddressOffset = "0"
+
+sound.present = "TRUE"
+sound.autodetect = "TRUE"
 EOF
 zip -r torvm-vmware.zip vmware
 rm -rf vmware
