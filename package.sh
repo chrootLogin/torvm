@@ -25,7 +25,7 @@ virtualHW.version = "7"
 displayName = "TorVM"
 guestOS = "other26xlinux-64"
 
-numvcpus = "2"
+numvcpus = "1"
 memsize = "1024"
 
 tools.syncTime = "TRUE"
