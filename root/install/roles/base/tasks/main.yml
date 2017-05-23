@@ -9,6 +9,7 @@
     # torvm -> mkpasswd --method=sha-512
     password: "$6$vCS7Y9RwlT.XgP$lNI.ILIU4CEYBBOF3YOJOZQ3sryP.8zoczdEC59EMeXx7QZqebibnznkix1p94FeRVhJtdyhkQl4H96ajurqc1"
     groups: sudo
+    shell: /bin/bash
 
 - name: "Install base packages"
   apt:
@@ -28,7 +29,30 @@
     - iputils-ping
     - screen
     - ntp
+    - open-vm-tools
+    - open-vm-tools-dkms
+
+- name: set en_US.UTF-8 and de_CH.UTF-8 as generated locale
+  debconf:
+    name: locales
+    question: 'locales/locales_to_be_generated'
+    value: 'de_CH.UTF-8 de_DE.UTF-8 de_AT.UTF-8 en_GB.UTF-8 en_US.UTF-8 UTF-8'
+    vtype: 'multiselect'
+
+- name: set en_US.UTF-8 as default locale
+  debconf:
+    name: locales
+    question: 'locales/default_environment_locale'
+    value: en_US.UTF-8
+    vtype: 'select'
 
 - name: "Update command-not-found"
   shell: update-command-not-found
 
+- name: "Create /etc/motd"
+  template:
+    src: motd.j2
+    dest: /etc/motd
+    owner: root
+    group: root
+    mode: 0644

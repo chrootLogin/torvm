@@ -10,3 +10,31 @@
   service:
     name: tor
     enabled: yes
+
+- name: "Configure tor"
+  lineinfile:
+    path: /etc/tor/torrc
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - { regexp: "^#AutomapHostsOnResolve", line: "AutomapHostsOnResolve 1" }
+    - { regexp: "^#TransPort", line: "TransPort 9040" }
+    - { regexp: "^#DNSPort", line: "DNSPort 53" }
+  notify: "Restart Tor"
+
+- name: "Configure nameserver"
+  copy:
+    src: "resolv.conf"
+    dest: "/etc/resolv.conf"
+
+- name: "Make tor-firewall and rc.local executable"
+  file:
+    path: "{{ item }}"
+    owner: root
+    group: root
+    mode: 0755
+  with_items:
+    - /etc/rc.local
+    - /usr/local/bin/tor-firewall.sh
+
+- meta: flush_handlers

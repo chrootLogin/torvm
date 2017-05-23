@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+# run tor firewall
+/usr/local/bin/tor-firewall.sh
+
+exit 0

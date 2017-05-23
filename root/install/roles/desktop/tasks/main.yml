@@ -5,3 +5,4 @@
     state: latest
   with_items:
     - task-mate-desktop
+    - open-vm-tools-desktop
