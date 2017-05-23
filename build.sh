@@ -1,5 +1,7 @@
 #!/bin/bash
 
+MIRROR=http://pkg.adfinis-sygroup.ch/debian
+
 function cleanup {
   echo "Stop all processes..."
   lsof /mnt | awk 'FNR > 1 { print $2 }' | xargs -r kill
@@ -53,7 +55,7 @@ mkfs.ext4 -L root /dev/nbd0p2 || fail "Couldn't create root filesystem"
 mount /dev/nbd0p2 /mnt || fail "Couldn't mount root filesystem"
 
 echo "Install debian..."
-debootstrap --include=less,locales-all,vim,sudo,acpid jessie /mnt http://ftp.ch.debian.org/debian || fail "Couldn't create base filesystem"
+debootstrap --include=less,locales-all,vim,sudo,acpid jessie /mnt ${MIRROR} || fail "Couldn't create base filesystem"
 
 echo "Mount image..."
 mount --bind /dev /mnt/dev || fail "Couldn't mount /dev"
