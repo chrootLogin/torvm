@@ -5,10 +5,10 @@ set -x
 
 echo "Create folders"
 mkdir -p target/qemu/
-mkdir -p target/vmware/TorVM.vmware/
+mkdir -p target/vmware/TorVM.vmwarevm/
 
 echo "Convert image"
-qemu-img convert -f qcow2 -O vmdk torvm.qcow2 target/vmware/TorVM.vmware/TorVM.vmdk
+qemu-img convert -f qcow2 -O vmdk torvm.qcow2 target/vmware/TorVM.vmwarevm/TorVM.vmdk
 mv torvm.qcow2 target/qemu/TorVM.qcow2
 
 cd target/
@@ -18,7 +18,7 @@ tar czf torvm-qemu.tar.gz qemu
 rm -rf qemu
 
 echo "Create VMware package"
-cat << EOF > vmware/TorVM.vmware/TorVM.vmx
+cat << EOF > vmware/TorVM.vmwarevm/TorVM.vmx
 config.version = "8"
 virtualHW.version = "7"
 
@@ -66,5 +66,5 @@ ethernet0.generatedAddressOffset = "0"
 sound.present = "TRUE"
 sound.autodetect = "TRUE"
 EOF
-zip -r torvm-vmware.zip vmware/TorVM.vmware
+cd vmware && zip -r torvm-vmware.zip TorVM.vmware; cd  ..
 rm -rf vmware
