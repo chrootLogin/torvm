@@ -20,9 +20,9 @@ node('privileged') {
 
     stage('Deploy') {
       withCredentials([
-        usernamePassword(credentialsId: 'bintray',
-          passwordVariable: 'BINTRAY_PASSWORD',
-          usernameVariable: 'BINTRAY_USERNAME')
+        usernamePassword(credentialsId: 'nextcloud',
+          passwordVariable: 'NEXTCLOUD_PASSWORD',
+          usernameVariable: 'NEXTCLOUD_USERNAME')
       ]) {
         sh 'bash ./deploy.sh'
       }
