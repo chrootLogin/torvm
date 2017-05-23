@@ -66,5 +66,5 @@ ethernet0.generatedAddressOffset = "0"
 sound.present = "TRUE"
 sound.autodetect = "TRUE"
 EOF
-zip -r torvm-vmware.zip vmware
+zip -r torvm-vmware.zip vmware/TorVM.vmware
 rm -rf vmware
