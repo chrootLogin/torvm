@@ -4,7 +4,6 @@ set -e
 set -x
 
 echo "Create folders"
-
 mkdir -p target/qemu/
 mkdir -p target/vmware/TorVM.vmware/
 
