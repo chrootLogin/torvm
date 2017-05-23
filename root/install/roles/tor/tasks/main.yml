@@ -1,10 +1,24 @@
 ---
+- name: "Add torproject apt-key"
+  apt_key:
+    keyserver: keys.gnupg.net
+    id: A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89
+    state: present
+
+- name: "Add torproject repository"
+  apt_repository:
+    repo: deb http://deb.torproject.org/torproject.org jessie main
+    state: present
+    filename: 'torproject'
+
 - name: "Install Tor & Dependencies"
   apt:
     pkg: "{{ item }}"
     state: latest
   with_items:
+    - deb.torproject.org-keyring
     - tor
+    - tor-arm
 
 - name: "Enable tor"
   service:
