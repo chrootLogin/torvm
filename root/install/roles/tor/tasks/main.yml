@@ -20,6 +20,14 @@
     - tor
     - tor-arm
 
+- name: "Install resolv.conf"
+  copy:
+    src: resolv.conf
+    dest: /etc/resolv.conf
+    owner: root
+    group: root
+    mode: 0644
+
 - name: "Enable tor"
   service:
     name: tor
