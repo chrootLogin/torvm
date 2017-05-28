@@ -11,7 +11,9 @@ node('privileged') {
     }
 
     stage('Build') {
-      sh 'sudo bash ./build.sh'
+      ansiColor('xterm') {
+        sh 'sudo bash ./build.sh'
+      }
     }
 
     stage('Package') {
