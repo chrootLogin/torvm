@@ -3,6 +3,7 @@
   apt:
     pkg: "{{ item }}"
     state: latest
+    install_recommends: no
   with_items:
     - task-mate-desktop
     - open-vm-tools-desktop

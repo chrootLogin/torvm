@@ -20,14 +20,6 @@
     - tor
     - tor-arm
 
-- name: "Install resolv.conf"
-  copy:
-    src: resolv.conf
-    dest: /etc/resolv.conf
-    owner: root
-    group: root
-    mode: 0644
-
 - name: "Enable tor"
   service:
     name: tor
@@ -44,10 +36,22 @@
     - { regexp: "^#DNSPort", line: "DNSPort 53" }
   notify: "Restart Tor"
 
-- name: "Configure nameserver"
+- name: "Remove incompatible packages"
+  apt:
+    name: "{{ item}}"
+    state: absent
+  with_items:
+    - network-manager
+    - network-manager-gnome
+    - resolvconf
+
+- name: "Install resolv.conf"
   copy:
-    src: "resolv.conf"
-    dest: "/etc/resolv.conf"
+    src: resolv.conf
+    dest: /etc/resolv.conf
+    owner: root
+    group: root
+    mode: 0644
 
 - name: "Make tor-firewall and rc.local executable"
   file:
