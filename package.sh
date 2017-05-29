@@ -6,6 +6,7 @@ set -x
 echo "Create folders"
 mkdir -p target/qemu/
 mkdir -p target/vmware/TorVM.vmwarevm/
+mkdir -p target/vbox/
 
 echo "Convert image"
 qemu-img convert -f qcow2 -O vmdk torvm.qcow2 target/vmware/TorVM.vmwarevm/TorVM.vmdk
@@ -66,5 +67,13 @@ ethernet0.generatedAddressOffset = "0"
 sound.present = "TRUE"
 sound.autodetect = "TRUE"
 EOF
+
+echo "Convert VMware machine to VirtualBox"
+ovftool vmware/TorVM.vmwarevm/TorVM.vmx vbox/TorVM.ovf
+
+echo "Zip and cleanup"
 cd vmware && zip -r ../torvm-vmware.zip TorVM.vmwarevm; cd  ..
 rm -rf vmware
+
+cd vbox && zip -r ../torvm-vbox.zip *; cd  ..
+rm -rf vbox
