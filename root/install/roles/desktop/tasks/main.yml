@@ -1,5 +1,5 @@
 ---
-- name: "Install MATE Desktop"
+- name: "Install MATE desktop"
   apt:
     pkg: "{{ item }}"
     state: latest
@@ -7,3 +7,13 @@
   with_items:
     - task-mate-desktop
     - open-vm-tools-desktop
+
+- name: "Install desktop tools"
+  apt:
+    pkg: "{{ item }}"
+    state: latest
+    install_recommends: no
+  with_items:
+    - chromium
+    - chromium-inspector
+    - chromium-l10n

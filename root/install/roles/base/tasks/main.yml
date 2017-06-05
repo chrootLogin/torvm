@@ -16,21 +16,22 @@
     pkg: "{{ item }}"
     state: latest
   with_items:
-    - curl
-    - locales
-    - procps
-    - command-not-found
     - bash-completion
+    - bind9-host
     - bzip2
-    - unzip
+    - curl
+    - command-not-found
     - git
-    - vim
-    - wget
     - iputils-ping
-    - screen
+    - locales
     - ntp
     - open-vm-tools
     - open-vm-tools-dkms
+    - procps
+    - screen
+    - unzip
+    - vim
+    - wget
 
 - name: set en_US.UTF-8 and de_CH.UTF-8 as generated locale
   debconf:

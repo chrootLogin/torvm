@@ -89,6 +89,8 @@ iface lo inet loopback
 
 auto eth0
 iface eth0 inet dhcp
+  dns-search localdomain
+  dns-nameservers 127.0.0.1
 EOF
 
 echo "Chroot inside image and bootstrap..."
