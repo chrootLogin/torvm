@@ -1,0 +1,3 @@
+[submodule "root/install/roles/ansible-role-keyboard"]
+	path = root/install/roles/ansible-role-keyboard
+	url = https://github.com/gantsign/ansible-role-keyboard.git
