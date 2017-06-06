@@ -20,6 +20,12 @@ node('privileged') {
       sh 'bash ./package.sh'
     }
 
+    stage('Deploy sourceforge') {
+      sshagent(['8ffaa0c1-6e5d-4884-b2ee-854685476789']) {
+        sh 'rsync -aP -e "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -l rootlogin" target/torvm-vmware.zip frs.sourceforge.net:/home/frs/project/torvm/TorVM-VMware-${BRANCH_NAME}.zip'
+      }
+    }
+
     stage('Deploy local') {
       withCredentials([
         usernamePassword(credentialsId: 'nextcloud',
@@ -27,12 +33,6 @@ node('privileged') {
           usernameVariable: 'NEXTCLOUD_USERNAME')
       ]) {
         sh 'bash ./deploy.sh'
-      }
-    }
-
-    stage('Deploy sourceforge') {
-      sshagent(['8ffaa0c1-6e5d-4884-b2ee-854685476789']) {
-        sh 'rsync -aP -e "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -l rootlogin" target/torvm-vmware.zip frs.sourceforge.net:/home/frs/project/torvm/TorVM-VMware-${BRANCH_NAME}.zip'
       }
     }
   } catch(err) {
