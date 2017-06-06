@@ -22,18 +22,11 @@ node('privileged') {
 
     stage('Deploy sourceforge') {
       sshagent(['8ffaa0c1-6e5d-4884-b2ee-854685476789']) {
+        sh 'rsync -aP -e "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -l rootlogin" target/torvm-qemu.tar.gz frs.sourceforge.net:/home/frs/project/torvm/TorVM-QEMU-${BRANCH_NAME}.tar.gz'
         sh 'rsync -aP -e "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -l rootlogin" target/torvm-vmware.zip frs.sourceforge.net:/home/frs/project/torvm/TorVM-VMware-${BRANCH_NAME}.zip'
+        sh 'rsync -aP -e "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -l rootlogin" target/torvm-vbox.zip frs.sourceforge.net:/home/frs/project/torvm/TorVM-VirtualBox-${BRANCH_NAME}.zip'
       }
-    }
-
-    stage('Deploy local') {
-      withCredentials([
-        usernamePassword(credentialsId: 'nextcloud',
-          passwordVariable: 'NEXTCLOUD_PASSWORD',
-          usernameVariable: 'NEXTCLOUD_USERNAME')
-      ]) {
-        sh 'bash ./deploy.sh'
-      }
+      deleteDir()
     }
   } catch(err) {
     currentBuild.result = "FAILURE"
