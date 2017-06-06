@@ -5,7 +5,7 @@ A debian VM running Tor.
 
 ## Download
 
-[https://sourceforge.net/projects/torvm/files/](https://sourceforge.net/projects/torvm/files/)
+You can download binary builds on SF: [https://sourceforge.net/projects/torvm/files/](https://sourceforge.net/projects/torvm/files/)
 
 ## Using
 
