@@ -1,7 +1,11 @@
 # TorVM
 A debian VM running Tor.
 
-**This is work in progress... So, don't expect something usable**
+**This is work in progress... So, don't expect something usable and safe.**
+
+## Download
+
+[https://sourceforge.net/projects/torvm/files/](https://sourceforge.net/projects/torvm/files/)
 
 ## Using
 
